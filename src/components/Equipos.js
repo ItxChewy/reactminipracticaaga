@@ -50,15 +50,13 @@ export default class Equipos extends Component {
     buscarJugadoresPorNombre = (e) => {
         e.preventDefault();
         var nombreSeleccionado = this.cajaNombre.current.value;
-        var aux = [];
-        for (var i = 0; i <= this.state.todosJugadores.length - 1; i++) {
-            if ((this.state.todosJugadores[i].nombre.includes(nombreSeleccionado))) {
-                aux.push(this.state.todosJugadores[i])
-            }
-        }
-        this.setState({
-            jugadores: aux
+        let request = "api/Jugadores/FindJugadores/" + nombreSeleccionado
+        axios.get(this.urlEquipos + request).then(response =>{
+            this.setState({
+                jugadores:response.data
+            })
         })
+        
     }
 
     render() {
